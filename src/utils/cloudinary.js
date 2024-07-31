@@ -1,6 +1,7 @@
 import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
 import path from "path";
+import { ApiError } from "./ApiError";
 
 cloudinary.config({ 
   cloud_name: "dhxy7ejxy", 
@@ -46,4 +47,22 @@ const uploadOnCloudinary = async (localFilePath) => {
     }
 }
 
-export { uploadOnCloudinary };
+
+const deleteFromCloudinary = async (Public_Id) => {
+    try {
+         
+        if(!Public_Id){
+            throw new ApiError(400, "Invalid public id")
+        }
+
+        const deleted_item = await cloudinary.uploader
+        .destroy("Public_Id", {resource_type: "auto"})
+
+        return true
+        
+    } catch (error) {
+        console.error('Error deleting video:', error);
+    }
+}
+
+export { uploadOnCloudinary, deleteFromCloudinary };

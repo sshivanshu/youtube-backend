@@ -3,13 +3,25 @@ import mongoose, {Schema} from "mongoose";
 
 const videoSchema = new Schema(
     {
-        videoFile:{
-            type: String,
-            required: true,
+        videoFile: {
+            public_id: {
+                type: String,
+                required: true,
+              },
+              url: {
+                type: String,
+                required: true,
+              }
         },
-        thumbnail:{
-            type: String,
-            required: true,
+        thumbnail: {
+            public_id: {
+                type: String,
+                required: true,
+              },
+              url: {
+                type: String,
+                required: true,
+              }
         },
         title:{
             type: String,
@@ -29,7 +41,7 @@ const videoSchema = new Schema(
         ,
         isPublished:{
             type: Boolean,
-            required: [true,'Password is required']
+            default: true
         },
         owner: {
             type: Types.Schema.ObjectId,
